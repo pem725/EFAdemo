@@ -38,13 +38,13 @@ shinyServer(function(input, output) {
   })
   
   output$compPlot <- renderPlot({
-    pout <- fa(GDat(),nfactors=input$Nr,n.iter=input$boot,rotate=input$rotate)
+    pout <- fa(GDat(),nfactors=input$Nr,rotate=input$rotate)
     lout <- cbind(1:input$Nr,melt(pout$loadings[,1:input$Nr]))
     ggplot(data=lout) + geom_bar(aes(x=X1,y=value,fill=X1),stat="identity") + facet_wrap(~X2)
   })
   
   output$commPlot <- renderPlot({
-    pout <- fa(GDat(),nfactors=input$Nr,n.iter=input$boot,rotate=input$rotate)
+    pout <- fa(GDat(),nfactors=input$Nr,rotate=input$rotate)
     lout <- cbind(1:input$Nr,melt(pout$loadings[,1:input$Nr]))
     h.rn <- row.names(data.frame(pout$communality))
     h.sq <- data.frame(Var=h.rn,h2=pout$communality)
